@@ -143,6 +143,7 @@
 					</execution>
 					<!-- Creates the report after tests run -->
 					<execution>
+
 						<id>report</id>
 						<phase>test</phase>
 						<goals>
