@@ -1,4 +1,4 @@
-package main.com.ai4dev.tinderfordogs.service
+package com.ai4dev.tinderfordogs.service
 
 import org.springframework.stereotype.Service
 
@@ -18,7 +18,7 @@ class DogMatcherService {
      * Calculate compatibility score between two dogs
      * WARNING: This code has several bugs! 🐛
      */
-   private fun calculateCompatibility(dog1: Dog, dog2: Dog): Double {
+    fun calculateCompatibility(dog1: Dog, dog2: Dog): Double {
         var score = 0.0
 
         score += if (dog1.breed == dog2.breed) 25.0 else 0.0
