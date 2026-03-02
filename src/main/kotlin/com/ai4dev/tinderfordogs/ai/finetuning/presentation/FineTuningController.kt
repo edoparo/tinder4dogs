@@ -1,6 +1,10 @@
 package com.ai4dev.tinderfordogs.ai.finetuning.presentation
 
+import com.ai4dev.tinderfordogs.ai.finetuning.model.FineTuningJob
 import com.ai4dev.tinderfordogs.ai.finetuning.service.FineTuningPipelineService
+import com.ai4dev.tinderfordogs.ai.finetuning.service.OpenAIService
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/v1/fine-tuning")
 class FineTuningController(
     private val pipeline: FineTuningPipelineService,
+    private val openAIService: OpenAIService,
 ) {
     @PostMapping("/run")
     suspend fun runPipeline(
@@ -23,4 +28,9 @@ class FineTuningController(
             "fineTunedModel" to job?.fineTunedModel,
         )
     }
+
+    @GetMapping("/jobs/{jobId}")
+    suspend fun getJob(
+        @PathVariable jobId: String,
+    ): FineTuningJob = openAIService.getFineTuningJob(jobId)
 }

@@ -8,7 +8,7 @@ data class Dog(
     val breed: String,
     val age: Int,
     val gender: String,
-    val preferences: Set<String> = emptySet<String>()
+    val preferences: List<String> = emptyList()
 )
 
 @Service
@@ -21,9 +21,6 @@ class DogMatcherService {
     fun calculateCompatibility(dog1: Dog, dog2: Dog): Double {
         var score = 0.0
 
-        score += if (dog1.breed == dog2.breed) 25.0 else 0.0
-        score += if (dog1.gender == dog2.gender) 15.0 else 0.0
-
         val ageDiff = dog1.age - dog2.age
         score += when {
             ageDiff < 2 -> 30.0
@@ -31,8 +28,16 @@ class DogMatcherService {
             else -> 10.0
         }
 
+        if (dog1.breed == dog2.breed) {
+            score + 25.0
+        }
+
+        if (dog1.gender == dog2.gender) {
+            score += 15.0
+        }
+
         val commonPreferences = dog1.preferences
-            .intersect(dog2.preferences)
+            .intersect(dog2.preferences.toSet())
             .size
         score += commonPreferences * 10
 

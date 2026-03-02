@@ -68,4 +68,4 @@ class [ClassName]Test {
 - Concurrent access (if applicable)
 
 Generate complete, compilable test code with proper imports, return just the kotlin code without backticks or other formatting.
-You have to strip "```kotlin" and "```" from the generated code.
+You have to strip "```kotlin" and "```" from the generated code. 

@@ -49,4 +49,4 @@ NullPointerException when no dogs match criteria.
 ## Output
 Generate ONLY the commit message following the format above.
 Do NOT include any explanations or markdown code blocks.
-Add 'Closes #XXX' only if the issue is in this repo or the branch name contains a ticket number.
+Add 'Closes #123' only if the issue is in this repo.

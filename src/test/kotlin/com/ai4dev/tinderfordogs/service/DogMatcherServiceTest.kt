@@ -10,68 +10,69 @@ class DogMatcherServiceTest {
     private lateinit var dogMatcherService: DogMatcherService
 
     @BeforeEach
-    fun setUp() {
+    fun setup() {
         dogMatcherService = DogMatcherService()
     }
 
     @Test
-    fun `should return 1_0 when two identical dogs`() {
+    fun `should return 1 when two dogs are perfectly compatible`() {
         // Given
-        val dog1 = Dog(1, "Rex", "Labrador", 5, "Male")
+        val dog1 = Dog(1, "Rex", "Labrador", 5, "Male", listOf("Running", "Swimming"))
+        val dog2 = Dog(2, "Bella", "Labrador", 5, "Female", listOf("Running", "Swimming"))
 
         // When
-        val result = dogMatcherService.calculateCompatibility(dog1, dog1)
+        val result = dogMatcherService.calculateCompatibility(dog1, dog2)
 
         // Then
         assertEquals(1.0, result)
     }
 
     @Test
-    fun `should calculate correct compatibility score based on different criteria`() {
+    fun `should return lower score when dogs have different breeds and no common preferences`() {
         // Given
-        val dog1 = Dog(1, "Rex", "Labrador", 5, "Male")
-        val dog2 = Dog(2, "Bella", "Labrador", 3, "Female")
+        val dog1 = Dog(1, "Rex", "Labrador", 5, "Male", listOf("Running"))
+        val dog2 = Dog(2, "Bella", "Husky", 3, "Female", listOf("Swimming"))
 
         // When
         val result = dogMatcherService.calculateCompatibility(dog1, dog2)
 
         // Then
-        assertEquals(0.75, result)
+        assertEquals(0.35, result)
     }
 
     @Test
-    fun `should return lower compatibility score for different breeds and more age difference`() {
+    fun `should return 0 when dogs have maximum age difference and no common preferences or breed`() {
         // Given
-        val dog1 = Dog(1, "Rex", "Labrador", 5, "Male")
-        val dog2 = Dog(2, "Bella", "Beagle", 10, "Female")
+        val dog1 = Dog(1, "Rex", "Labrador", 10, "Male", emptyList())
+        val dog2 = Dog(2, "Bella", "Husky", 1, "Female", emptyList())
 
         // When
         val result = dogMatcherService.calculateCompatibility(dog1, dog2)
 
         // Then
-        assertEquals(0.25, result)
+        assertEquals(0.1, result)
     }
 
     @Test
     fun `should return null when no candidates are available`() {
         // Given
-        val dog = Dog(1, "Rex", "Labrador", 5, "Male")
-        val candidates = emptyList<Dog>()
+        val dog = Dog(1, "Rex", "Labrador", 5, "Male", listOf("Running"))
 
         // When
-        val result = dogMatcherService.findBestMatch(dog, candidates)
+        val result = dogMatcherService.findBestMatch(dog, emptyList())
 
         // Then
         assertNull(result)
     }
 
     @Test
-    fun `should find best match from a list of candidates`() {
+    fun `should find the best match among multiple candidates`() {
         // Given
-        val dog = Dog(1, "Rex", "Labrador", 5, "Male")
+        val dog = Dog(1, "Rex", "Labrador", 5, "Male", listOf("Running", "Swimming"))
         val candidates = listOf(
-            Dog(2, "Bella", "Labrador", 3, "Female"),
-            Dog(3, "Max", "Beagle", 7, "Male")
+            Dog(2, "Bella", "Labrador", 5, "Female", listOf("Running", "Swimming")),
+            Dog(3, "Max", "Husky", 7, "Male", listOf("Running")),
+            Dog(4, "Lucy", "Labrador", 2, "Female", listOf("Swimming"))
         )
 
         // When
@@ -82,12 +83,12 @@ class DogMatcherServiceTest {
     }
 
     @Test
-    fun `should ignore the same dog id in candidates when finding best match`() {
+    fun `should ignore the dog itself in the list of candidates`() {
         // Given
-        val dog = Dog(1, "Rex", "Labrador", 5, "Male")
+        val dog = Dog(1, "Rex", "Labrador", 5, "Male", listOf("Running", "Swimming"))
         val candidates = listOf(
-            Dog(1, "Rex", "Labrador", 5, "Male"),
-            Dog(2, "Bella", "Labrador", 3, "Female")
+            dog,
+            Dog(2, "Bella", "Labrador", 5, "Female", listOf("Running", "Swimming"))
         )
 
         // When
