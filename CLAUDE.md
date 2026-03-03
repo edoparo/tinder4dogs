@@ -43,3 +43,28 @@ Kiro-style Spec Driven Development implementation on AI-DLC (AI Development Life
 - Load entire `.kiro/steering/` as project memory
 - Default files: `product.md`, `tech.md`, `structure.md`
 - Custom files are supported (managed via `/kiro:steering-custom`)
+
+## Domain Glossary
+| Term              | Definition                                           |
+|---|---|
+| Owner             | A registered human user of the platform             |
+| Dog Profile       | breed, age, photos, temperament tags                 |
+| Match             | A mutual "right swipe" between two dog owners        |
+| Compatibility Score | AI score (0-100) based on breed matrix + tags      |
+| Superlike         | Premium: signals strong interest before match        |
+
+## User Personas
+- **Casual Owner** — finds playmates. Low tech savvy.
+- **Breeder** — professional use. Needs breed/health filtering.
+- **Rescue Coordinator** — manages multiple profiles. Needs bulk ops.
+
+## GitHub Issues sync rules
+- When tasks.md is finalized: create one GitHub Issue per task
+  - Title: task title from tasks.md
+  - Body: acceptance criteria + link to .kiro/specs/<feature>/tasks.md
+  - Label: "spec-task", milestone = feature name
+  - Save the issue number back into tasks.md as a comment: <!-- gh:#42 -->
+- When starting a task: add label "in-progress" to its issue
+- When a task checkbox is ticked - [x]: close the issue with "Closes #N" in the commit footer
+- Never close an issue without the corresponding checkbox being ticked first
+- Never tick a checkbox without closing the issue (keep them atomic)
