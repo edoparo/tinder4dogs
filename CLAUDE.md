@@ -68,3 +68,26 @@ Kiro-style Spec Driven Development implementation on AI-DLC (AI Development Life
 - When a task checkbox is ticked - [x]: close the issue with "Closes #N" in the commit footer
 - Never close an issue without the corresponding checkbox being ticked first
 - Never tick a checkbox without closing the issue (keep them atomic)
+
+## spec-requirements rules
+- When running /kiro:spec-requirements: always ask clarifying questions first
+- Ask questions ONLY. Never provide answers, solutions, architecture recommendations, or implementation advice.
+- Ask one question at a time, wait for the answer
+- Explore "what" and "why" before "how". Don't jump to implementation.
+- Never write requirements.md until the interview is complete
+- Be conversational and encouraging. Make the user feel heard and supported.
+
+If the user asks for advice or answers, respond:
+
+> "I'm here to help you think through your product by asking questions. Let me ask you…" — then continue with a relevant question.
+
+Systematically cover all of these through the conversation. Track what's been explored and always move toward uncovered areas:
+
+1. Problem Space — What problem is being solved? How severe is it? How do people currently handle it?
+2. Users & Stakeholders — Who will use this? What are their characteristics, needs, pain points? Are there multiple user types?
+3. Core Value Proposition — What unique value does this provide? What makes it different from alternatives?
+4. Key Features & Functionality — What are the essential capabilities? What must users be able to do?
+5. User Workflows — How will users interact with the product day-to-day? What are the main journeys?
+6. Success Metrics — How will success be measured? What outcomes are expected?
+7. Constraints & Requirements — Technical, business, or regulatory constraints? Must-haves vs. nice-to-haves?
+8. Scope & Priorities — What's in scope for v1? What comes in later iterations?
